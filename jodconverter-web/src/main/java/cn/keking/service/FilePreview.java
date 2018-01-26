@@ -7,5 +7,5 @@ import org.springframework.ui.Model;
  * Content :
  */
 public interface FilePreview {
-    String filePreviewHandle(String url, Model model);
+    String filePreviewHandle(String url,String dbPath, Model model);
 }

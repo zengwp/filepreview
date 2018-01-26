@@ -28,7 +28,7 @@ public class CompressFilePreviewImpl implements FilePreview{
     ZipReader zipReader;
 
     @Override
-    public String filePreviewHandle(String url, Model model) {
+    public String filePreviewHandle(String url,String dbPath, Model model) {
         FileAttribute fileAttribute=fileUtils.getFileAttribute(url);
         String fileName=fileAttribute.getName();
         String decodedUrl=fileAttribute.getDecodedUrl();
@@ -36,7 +36,7 @@ public class CompressFilePreviewImpl implements FilePreview{
         String fileTree = null;
         // 判断文件名是否存在(redis缓存读取)
         if (!StringUtils.hasText(fileUtils.getConvertedFile(fileName))) {
-            ReturnResponse<String> response = downloadUtils.downLoad(decodedUrl, suffix, fileName);
+            ReturnResponse<String> response = downloadUtils.downLoad(decodedUrl, suffix, fileName,dbPath);
             if (0 != response.getCode()) {
                 model.addAttribute("msg", response.getMsg());
                 return "fileNotSupported";

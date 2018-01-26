@@ -12,7 +12,7 @@ import org.springframework.ui.Model;
 public class PdfFilePreviewImpl implements FilePreview{
 
     @Override
-    public String filePreviewHandle(String url, Model model) {
+    public String filePreviewHandle(String url,String dbPath, Model model) {
         model.addAttribute("pdfUrl", url);
         return "pdf";
     }

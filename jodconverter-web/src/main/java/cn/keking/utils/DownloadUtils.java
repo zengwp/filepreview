@@ -26,7 +26,7 @@ public class DownloadUtils {
      * @param type
      * @return
      */
-    public ReturnResponse<String> downLoad(String urlAddress, String type, String fileName){
+    public ReturnResponse<String> downLoad(String urlAddress, String type, String fileName,String dbPath){
         ReturnResponse<String> response = new ReturnResponse<>(0, "下载成功!!!", "");
         URL url = null;
         try {
@@ -44,7 +44,7 @@ public class DownloadUtils {
         }else { // 文件后缀不一致时，以type为准(针对simText【将类txt文件转为txt】)
             fileName = fileName.replace(fileName.substring(fileName.lastIndexOf(".") + 1), type);
         }
-        String realPath = fileDir + fileName;
+        String realPath = fileDir+dbPath+ fileName;
         File dirFile = new File(fileDir);
         if (!dirFile.exists()) {
             dirFile.mkdirs();
@@ -63,7 +63,7 @@ public class DownloadUtils {
             in.close();
             response.setContent(realPath);
             // 同样针对类txt文件，如果成功msg包含的是转换后的文件名
-            response.setMsg(fileName);
+            response.setMsg(dbPath+fileName);
 
              // txt转换文件编码为utf8
             if("txt".equals(type)){

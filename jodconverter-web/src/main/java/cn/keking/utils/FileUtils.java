@@ -209,7 +209,7 @@ public class FileUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("文件编码格式为:" + enc);
+        //System.out.println("文件编码格式为:" + enc);
         return enc;
     }
 

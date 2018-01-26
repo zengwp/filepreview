@@ -35,7 +35,7 @@ public class OfficeFilePreviewImpl implements FilePreview {
     private OfficeToPdf officeToPdf;
 
     @Override
-    public String filePreviewHandle(String url, Model model) {
+    public String filePreviewHandle(String url,String dbPath, Model model) {
         FileAttribute fileAttribute=fileUtils.getFileAttribute(url);
         String suffix=fileAttribute.getSuffix();
         String fileName=fileAttribute.getName();
@@ -46,14 +46,14 @@ public class OfficeFilePreviewImpl implements FilePreview {
         if (!fileUtils.listConvertedFiles().containsKey(pdfName)) {
             String filePath = fileDir + fileName;
             if (!new File(filePath).exists()) {
-                ReturnResponse<String> response = downloadUtils.downLoad(decodedUrl, suffix, null);
+                ReturnResponse<String> response = downloadUtils.downLoad(decodedUrl, suffix, null,dbPath);
                 if (0 != response.getCode()) {
                     model.addAttribute("msg", response.getMsg());
                     return "fileNotSupported";
                 }
                 filePath = response.getContent();
             }
-            String outFilePath = fileDir + pdfName;
+            String outFilePath = fileDir+dbPath + pdfName;
             if (StringUtils.hasText(outFilePath)) {
                 officeToPdf.openOfficeToPDF(filePath, outFilePath);
                 File f = new File(filePath);
@@ -69,7 +69,7 @@ public class OfficeFilePreviewImpl implements FilePreview {
                
             }
         }
-        model.addAttribute("pdfUrl", pdfName);
+        model.addAttribute("pdfUrl", dbPath+pdfName);
         return isHtml ? "html" : "pdf";
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 @Service
 public class OtherFilePreviewImpl implements FilePreview {
     @Override
-    public String filePreviewHandle(String url, Model model) {
+    public String filePreviewHandle(String url,String dbPath, Model model) {
         model.addAttribute("msg", "系统还不支持该格式文件的在线预览");
         return "fileNotSupported";
     }

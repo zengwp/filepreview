@@ -1,5 +1,6 @@
 package cn.keking.web.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -47,11 +48,16 @@ public class OnlinePreviewController {
      * @return
      */
     @RequestMapping(value = "onlinePreview", method = RequestMethod.GET)
-    public String onlinePreview(String url, Model model, HttpServletRequest req) {
+    public String onlinePreview(String url,String filePath, Model model, HttpServletRequest req) {
+    	if(null==filePath || "".equals(filePath.trim()) || "undefined".equals(filePath.trim())){
+    		filePath="otherTmp/";
+    	}else {
+    		filePath=filePath.trim()+"/";
+    	}
     	url=Base64_decode(url);
         req.setAttribute("fileKey", req.getParameter("fileKey"));
         FilePreview filePreview = previewFactory.get(url);
-        return filePreview.filePreviewHandle(url, model);
+        return filePreview.filePreviewHandle(url,filePath, model);
     }
 
     /**

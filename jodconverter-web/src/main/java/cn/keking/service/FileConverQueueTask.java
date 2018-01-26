@@ -66,7 +66,7 @@ public class FileConverQueueTask {
                         FileType fileType=fileAttribute.getType();
                         if(fileType.equals(FileType.compress) || fileType.equals(FileType.office)){
                             FilePreview filePreview=previewFactory.get(url);
-                            filePreview.filePreviewHandle(url,new ExtendedModelMap());
+                            filePreview.filePreviewHandle(url,null,new ExtendedModelMap());
                         }
                     }
                 } catch (Exception e) {
