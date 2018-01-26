@@ -68,6 +68,11 @@
                     } else {
                         fulls += ",resizable"; // 对于不支持screen属性的浏览器，可以手工进行最大化。 manually
                     }
+                    var tmpName=treeNode.fileName.substring(treeNode.fileName.length-4,treeNode.fileName.length).toLowerCase();
+                    if(tmpName=='.zip' || tmpName=='.rar'){
+                    	alert("无法预览，请下载文件后解压");
+                    	return false;
+                    }
                     var tmpUrl=base65_encode("${baseUrl}" + treeNode.fileName);
                     window.open("onlinePreview?url="+tmpUrl+"&fileKey="+treeNode.fileKey, "_blank",fulls);
                 }
