@@ -105,15 +105,6 @@
                 </div>
             </div>
         </div>
-        <div class="panel-body">
-            <div>
-                <!-- UY BEGIN -->
-                <div id="uyan_frame"></div>
-                <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2155152"></script>
-                <!-- UY END -->
-            </div>
-        </div>
-
     </div>
 </div>
 
@@ -175,7 +166,7 @@
             // 每个data添加一列用来操作
              $(data).each(function (index, item) {
             	var tmpUrl=base65_encode('${baseUrl}' + item.fileName);
-                item.action = "<a class='btn btn-default' target='_blank' href='${baseUrl}onlinePreview?url="+tmpUrl+"'>预览</a>" +"<a class='btn btn-default' target='_blank' href='javascript:void(0);' onclick='deleteFile(\""+item.fileName+"\")'>删除</a>";
+                item.action ="<a class='btn btn-default' target='_blank' href='${baseUrl}onlinePreview?url="+tmpUrl+"'>预览</a>" +"<a class='btn btn-default' target='_blank' href='javascript:void(0);' onclick='deleteFile(\""+item.fileName+"\")'>删除</a>";
             });
             return data;
         }).on('post-body.bs.table', function (e,data) {
