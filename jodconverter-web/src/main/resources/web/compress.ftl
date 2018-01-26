@@ -27,7 +27,6 @@
     </style>
 </head>
 <body>
-
 <div class="zTreeDemoBackground left">
     <ul id="treeDemo" class="ztree"></ul>
 </div>
@@ -36,6 +35,12 @@
 <script type="text/javascript" src="js/jquery.ztree.core.js"></script>
 <script src="js/base64.js" type="text/javascript"></script>
 <script type="text/javascript">
+	function getUrlParam(name){
+		var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+		var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+		if (r!=null) return unescape(r[2]); return null; //返回参数值
+	} 
+
     var data = JSON.parse('${fileTree}');
     var setting = {
         view: {
@@ -68,13 +73,17 @@
                     } else {
                         fulls += ",resizable"; // 对于不支持screen属性的浏览器，可以手工进行最大化。 manually
                     }
+                    var filePath=getUrlParam("filePath");
+                    if(null==filePath || ''==filePath || 'undefined'==filePath){
+                    	filePath='';
+                    }
                     var tmpName=treeNode.fileName.substring(treeNode.fileName.length-4,treeNode.fileName.length).toLowerCase();
                     if(tmpName=='.zip' || tmpName=='.rar'){
                     	alert("无法预览，请下载文件后解压");
                     	return false;
                     }
                     var tmpUrl=base65_encode("${baseUrl}" + treeNode.fileName);
-                    window.open("onlinePreview?url="+tmpUrl+"&fileKey="+treeNode.fileKey, "_blank",fulls);
+                    window.open("onlinePreview?url="+tmpUrl+"&filePath="+filePath+"&fileKey="+treeNode.fileKey, "_blank",fulls);
                 }
             }
         }
