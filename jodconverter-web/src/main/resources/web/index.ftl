@@ -2,6 +2,7 @@
 
 <html lang="en">
 <head>
+	<meta http-equiv="Access-Control-Allow-Origin" content="*">
     <title>图片预览图</title>
     <link rel="stylesheet" href="css/viewer.min.css">
     <link rel="stylesheet" href="css/loading.css">
