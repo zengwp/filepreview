@@ -62,7 +62,7 @@ public class ZipReader {
         Map<String, FileNode> appender = Maps.newHashMap();
         List imgUrls=Lists.newArrayList();
         String baseUrl= (String) RequestContextHolder.currentRequestAttributes().getAttribute("baseUrl",0);
-        //String archiveFileName = fileUtils.getFileNameFromPath(filePath);
+        String archiveFileName = new File(filePath).getName(); //fileUtils.getFileNameFromPath(filePath);
         try {
             ZipFile zipFile = new ZipFile(filePath, fileUtils.getFileEncodeUTFGBK(filePath));
             Enumeration<ZipArchiveEntry> entries = zipFile.getEntries();
@@ -78,10 +78,10 @@ public class ZipReader {
                 String childName = level + "_" + originName;
                 boolean directory = entry.isDirectory();
                 if (!directory) {
-                    childName = dbPath+dbPath+ "_" + originName;
+                    childName = dbPath+dbPath+ archiveFileName+"_" + originName;
                     entriesToBeExtracted.add(Collections.singletonMap(childName, entry));
                 }
-                String parentName = getLast2FileName(fullName, archiveSeparator, dbPath+dbPath);
+                String parentName = getLast2FileName(fullName, archiveSeparator,dbPath+dbPath);
                 parentName = (level-1) + "_" + parentName;
                 FileType type=fileUtils.typeFromUrl(childName);
                 if (type.equals(FileType.picture)){//添加图片文件到图片列表
@@ -124,7 +124,7 @@ public class ZipReader {
             Archive archive = new Archive(new File(filePath));
             List<FileHeader> headers = archive.getFileHeaders();
             headers = sortedHeaders(headers);
-            //String archiveFileName = fileUtils.getFileNameFromPath(filePath);
+            String archiveFileName = new File(filePath).getName();
             List<Map<String, FileHeader>> headersToBeExtracted = Lists.newArrayList();
             for (FileHeader header : headers) {
                 String fullName;
@@ -138,7 +138,7 @@ public class ZipReader {
                 String childName = originName;
                 boolean directory = header.isDirectory();
                 if (!directory) {
-                    childName = dbPath+dbPath + "_" + originName;
+                    childName = dbPath+dbPath +archiveFileName+ "_" + originName;
                     headersToBeExtracted.add(Collections.singletonMap(childName, header));
                 }
                 String parentName = getLast2FileName(fullName, "\\", dbPath+dbPath);
