@@ -164,8 +164,7 @@ public class FileUtils {
     }
 
     public void addConvertedFile(String fileName, String value){
-        RMapCache<String, String> convertedList = redissonClient.getMapCache(REDIS_FILE_PREVIEW_PDF_KEY);
-        convertedList.fastPut(fileName, value);
+        redissonClient.getMapCache(REDIS_FILE_PREVIEW_PDF_KEY).fastPut(fileName, value);
     }
 
     /**

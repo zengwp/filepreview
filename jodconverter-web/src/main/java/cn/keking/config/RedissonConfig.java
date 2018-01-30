@@ -28,7 +28,7 @@ public class RedissonConfig {
     private int retryInterval=1500;
     private int reconnectionTimeout=3000;
     private int failedAttempts=3;
-    private String password = null;
+    private String password=null;
     private int subscriptionsPerConnection=5;
     private String clientName=null;
     private int subscriptionConnectionMinimumIdleSize = 1;
@@ -71,7 +71,6 @@ public class RedissonConfig {
         config.setUseLinuxNativeEpoll(false);
         return Redisson.create(config);
     }
-
     public int getThread() {
         return thread;
     }
