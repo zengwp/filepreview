@@ -32,7 +32,7 @@ public class FileController {
     String fileDir;
     @Autowired
     FileUtils fileUtils;
-    String demoDir = "otherTmp/otherTmp";
+    String demoDir = "otherTmp";
     String demoPath = demoDir + File.separator;
 
     @RequestMapping(value = "fileUpload", method = RequestMethod.POST)

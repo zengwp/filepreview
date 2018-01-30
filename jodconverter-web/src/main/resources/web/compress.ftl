@@ -75,14 +75,14 @@
                     }
                     var filePath=getUrlParam("filePath");
                     if(null==filePath || ''==filePath || 'undefined'==filePath){
-                    	filePath='';
+                    	filePath='otherTmp';
                     }
                     var tmpName=treeNode.fileName.substring(treeNode.fileName.length-4,treeNode.fileName.length).toLowerCase();
                     if(tmpName=='.zip' || tmpName=='.rar'){
                     	alert("无法预览，请下载文件后解压");
                     	return false;
                     }
-                    var tmpUrl=base65_encode("${baseUrl}" + treeNode.fileName);
+                    var tmpUrl=base65_encode(treeNode.fileName);
                     window.open("onlinePreview?url="+tmpUrl+"&filePath="+filePath+"&fileKey="+treeNode.fileKey, "_blank",fulls);
                 }
             }

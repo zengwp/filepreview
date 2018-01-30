@@ -19,6 +19,7 @@ import org.apache.commons.io.IOUtils;
 import org.redisson.api.RBlockingQueue;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +42,9 @@ public class OnlinePreviewController {
 
     @Autowired
     RedissonClient redissonClient;
+    
+    @Value("${file.dir}")
+    String fileDir;
 
     /**
      * @param url
@@ -55,6 +59,7 @@ public class OnlinePreviewController {
     		filePath=filePath.trim()+"/";
     	}
     	url=Base64_decode(url);
+    	url=fileDir+url;
         req.setAttribute("fileKey", req.getParameter("fileKey"));
         FilePreview filePreview = previewFactory.get(url);
         return filePreview.filePreviewHandle(url,filePath, model);

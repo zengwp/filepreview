@@ -28,7 +28,21 @@ public class DownloadUtils {
      */
     public ReturnResponse<String> downLoad(String urlAddress, String type, String fileName,String dbPath){
         ReturnResponse<String> response = new ReturnResponse<>(0, "下载成功!!!", "");
-        URL url = null;
+        /*//内网文件读取， 不通过url下载
+        response.setContent(urlAddress);
+        response.setMsg(dbPath+fileName);
+        // txt转换文件编码为utf8
+        if("txt".equals(type)){
+            try {
+				convertTextPlainFileCharsetToUtf8(urlAddress);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        }
+        return response;*/
+        
+        
+        /*URL url = null;
         try {
             urlAddress = replacePlusMark(urlAddress);
             urlAddress = encodeUrlParam(urlAddress);
@@ -37,21 +51,23 @@ public class DownloadUtils {
             url = new URL(urlAddress);
         } catch (MalformedURLException e) {
             e.printStackTrace();
-        }
+        }*/
         UUID uuid = UUID.randomUUID();
         if (null == fileName) {
             fileName = uuid+ "."+type;
         }else { // 文件后缀不一致时，以type为准(针对simText【将类txt文件转为txt】)
             fileName = fileName.replace(fileName.substring(fileName.lastIndexOf(".") + 1), type);
         }
-        String realPath = fileDir+dbPath+ fileName;
-        File dirFile = new File(fileDir);
+        String realPath = fileDir+dbPath+dbPath+ fileName;
+        File dirFile = new File(fileDir+dbPath+dbPath);
         if (!dirFile.exists()) {
             dirFile.mkdirs();
         }
         try {
-            URLConnection connection = url.openConnection();
-            InputStream in = connection.getInputStream();
+            /*URLConnection connection = url.openConnection();
+            InputStream in = connection.getInputStream();*/
+            File file = new File(urlAddress);
+            InputStream in = new FileInputStream(file);
 
             FileOutputStream os = new FileOutputStream(realPath);
             byte[] buffer = new byte[4 * 1024];
@@ -63,7 +79,7 @@ public class DownloadUtils {
             in.close();
             response.setContent(realPath);
             // 同样针对类txt文件，如果成功msg包含的是转换后的文件名
-            response.setMsg(dbPath+fileName);
+            response.setMsg(dbPath+dbPath+fileName);
 
              // txt转换文件编码为utf8
             if("txt".equals(type)){

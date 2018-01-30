@@ -17,7 +17,7 @@ import java.io.File;
 
 /**
  * Created by kl on 2018/1/17.
- * Content :处理office文件
+ * Content :澶勭悊office鏂囦欢
  */
 @Service
 public class OfficeFilePreviewImpl implements FilePreview {
@@ -42,7 +42,7 @@ public class OfficeFilePreviewImpl implements FilePreview {
         String decodedUrl=fileAttribute.getDecodedUrl();
         boolean isHtml = suffix.equalsIgnoreCase("xls") || suffix.equalsIgnoreCase("xlsx");
         String pdfName = fileName.substring(0, fileName.lastIndexOf(".") + 1) + (isHtml ? "html" : "pdf");
-        // 判断之前是否已转换过，如果转换过，直接返回，否则执行转换
+        // 鍒ゆ柇涔嬪墠鏄惁宸茶浆鎹㈣繃锛屽鏋滆浆鎹㈣繃锛岀洿鎺ヨ繑鍥烇紝鍚﹀垯鎵ц杞崲
         if (!fileUtils.listConvertedFiles().containsKey(pdfName)) {
             String filePath = fileDir + fileName;
             if (!new File(filePath).exists()) {
@@ -53,23 +53,27 @@ public class OfficeFilePreviewImpl implements FilePreview {
                 }
                 filePath = response.getContent();
             }
-            String outFilePath = fileDir+dbPath + pdfName;
+            String outFilePath = fileDir+dbPath+dbPath + pdfName;
+            File f=new File(fileDir+dbPath+dbPath);
+            if(!f.exists()){
+            	f.mkdir();
+            }
             if (StringUtils.hasText(outFilePath)) {
                 officeToPdf.openOfficeToPDF(filePath, outFilePath);
-                File f = new File(filePath);
+                /*File f = new File(filePath);
                 if (f.exists()) {
                     f.delete();
-                }
+                }*/
                 if (isHtml) {
-                    // 对转换后的文件进行操作(改变编码方式)
+                    // 瀵硅浆鎹㈠悗鐨勬枃浠惰繘琛屾搷浣�(鏀瑰彉缂栫爜鏂瑰紡)
                     fileUtils.doActionConvertedFile(outFilePath);
                 }
-               // 加入缓存
+               // 鍔犲叆缂撳瓨
                fileUtils.addConvertedFile(pdfName, fileUtils.getRelativePath(outFilePath));
                
             }
         }
-        model.addAttribute("pdfUrl", dbPath+pdfName);
+        model.addAttribute("pdfUrl", dbPath+dbPath+pdfName);
         return isHtml ? "html" : "pdf";
     }
 }

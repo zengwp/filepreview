@@ -43,9 +43,9 @@ public class CompressFilePreviewImpl implements FilePreview{
             }
             String filePath = response.getContent();
             if ("zip".equalsIgnoreCase(suffix) || "jar".equalsIgnoreCase(suffix) || "gzip".equalsIgnoreCase(suffix)) {
-                fileTree = zipReader.readZipFile(filePath, fileName);
+                fileTree = zipReader.readZipFile(filePath, fileName,dbPath);
             } else if ("rar".equalsIgnoreCase(suffix)) {
-                fileTree = zipReader.unRar(filePath, fileName);
+                fileTree = zipReader.unRar(filePath, fileName,dbPath);
             }
             fileUtils.addConvertedFile(fileName, fileTree);
         } else {

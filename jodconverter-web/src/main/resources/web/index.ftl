@@ -60,7 +60,7 @@
                 </a>
             </h4>
         </div>
-        <div id="collapseTwo" class="panel-collapse collapse">
+        <div id="collapseTwo" class="panel-collapse collapse in">
             <div class="panel-body">
                 <p style="color: red;">因为是测试所以一种文件只允许上传一个</p>
                 <div style="padding: 10px">
@@ -84,7 +84,7 @@
                 </a>
             </h4>
         </div>
-        <div id="collapseThree" class="panel-collapse collapse in">
+        <div id="collapseThree" class="panel-collapse collapse">
             <div class="panel-body">
                 <div>
                     2018年01月15日 ：<br>
@@ -166,8 +166,8 @@
         }).on('pre-body.bs.table', function (e,data) {
             // 每个data添加一列用来操作
              $(data).each(function (index, item) {
-            	var tmpUrl=base65_encode('${baseUrl}' + item.fileName);
-                item.action ="<a class='btn btn-default' target='_blank' href='${baseUrl}onlinePreview?url="+tmpUrl+"'>预览</a>" +"<a class='btn btn-default' target='_blank' href='javascript:void(0);' onclick='deleteFile(\""+item.fileName+"\")'>删除</a>";
+            	var tmpUrl=base65_encode(item.fileName);
+                item.action =item.fileName+"<a class='btn btn-default' target='_blank' href='${baseUrl}onlinePreview?url="+tmpUrl+"'>预览</a>";
             });
             return data;
         }).on('post-body.bs.table', function (e,data) {
