@@ -9,6 +9,7 @@
         #dowebok { width: 800px; margin: 0 auto; font-size: 0;}
         #dowebok li {  display: inline-block;width: 50px;height: 50px; margin-left: 1%; padding-top: 1%;}
         /*#dowebok li img { width: 200%;}*/
+        .viewer-close{display:none;}
     </style>
 </head>
 <body>
