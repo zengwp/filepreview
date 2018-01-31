@@ -167,7 +167,7 @@
             // 每个data添加一列用来操作
              $(data).each(function (index, item) {
             	var tmpUrl=base65_encode(item.fileName);
-                item.action =item.fileName+"<a class='btn btn-default' target='_blank' href='${baseUrl}onlinePreview?url="+tmpUrl+"'>预览</a>";
+                item.action =item.fileName+"<a class='btn btn-default' target='_blank' href='${baseUrl}onlinePreview?url="+tmpUrl+"'>预览</a> <a class='btn btn-default' target='_blank' href='javascript:void(0);' onclick='deleteFile(\""+item.fileName+"\")'>删除</a> ";
             });
             return data;
         }).on('post-body.bs.table', function (e,data) {
