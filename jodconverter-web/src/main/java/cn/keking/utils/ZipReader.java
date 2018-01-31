@@ -146,7 +146,7 @@ public class ZipReader {
                 if (type.equals(FileType.picture)){//添加图片文件到图片列表
                     imgUrls.add(baseUrl+childName);
                 }
-                childName=fileDir+dbPath+childName;
+                //childName=fileDir+dbPath+childName;
                 FileNode node = new FileNode(originName, childName, parentName, new ArrayList<>(), directory,fileKey);
                 addNodes(appender, parentName, node);
                 appender.put(childName, node);

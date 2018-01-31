@@ -101,11 +101,15 @@ public class FileController {
         File file = new File(fileDir + demoPath);
         if (file.exists()) {
             for(File file1 : file.listFiles()){
-                String existsFileSuffix = fileUtils.getSuffixFromFileName(file1.getName());
-                if (suffix.equals(existsFileSuffix)) {
-                    result = true;
-                    break;
-                }
+                try {
+                	String existsFileSuffix = fileUtils.getSuffixFromFileName(file1.getName());
+                	if (suffix.equals(existsFileSuffix)) {
+                        result = true;
+                        break;
+                    }
+				} catch (Exception e) {
+					continue;
+				}
             }
         }
         return result;
