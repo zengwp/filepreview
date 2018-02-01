@@ -63,6 +63,20 @@ public class DownloadUtils {
         if (!dirFile.exists()) {
             dirFile.mkdirs();
         }
+        File dirFile_two = new File(realPath);
+        if (dirFile_two.exists()) {//如果文件已存在
+        	try {
+        		if("txt".equals(type)){
+        			convertTextPlainFileCharsetToUtf8(realPath);
+            	}
+			} catch (Exception e) {
+				
+			}
+    	  response.setContent(realPath);
+          response.setMsg(dbPath+dbPath+fileName);
+          return response;
+        }
+        
         try {
             /*URLConnection connection = url.openConnection();
             InputStream in = connection.getInputStream();*/

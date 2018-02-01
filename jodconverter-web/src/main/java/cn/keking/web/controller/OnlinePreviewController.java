@@ -53,16 +53,22 @@ public class OnlinePreviewController {
      */
     @RequestMapping(value = "onlinePreview", method = RequestMethod.GET)
     public String onlinePreview(String url,String filePath, Model model, HttpServletRequest req) {
-    	if(null==filePath || "".equals(filePath.trim()) || "undefined".equals(filePath.trim())){
-    		filePath="otherTmp/";
-    	}else {
-    		filePath=filePath.trim()+"/";
-    	}
-    	url=Base64_decode(url);
-    	url=fileDir+url;
-        req.setAttribute("fileKey", req.getParameter("fileKey"));
-        FilePreview filePreview = previewFactory.get(url);
-        return filePreview.filePreviewHandle(url,filePath, model);
+    	try {
+    		if(null==filePath || "".equals(filePath.trim()) || "undefined".equals(filePath.trim())){
+        		filePath="otherTmp/";
+        	}else {
+        		filePath=filePath.trim()+"/";
+        	}
+        	url=Base64_decode(url);
+        	url=fileDir+url;
+            req.setAttribute("fileKey", req.getParameter("fileKey"));
+            FilePreview filePreview = previewFactory.get(url);
+            String str=filePreview.filePreviewHandle(url,filePath, model);
+            return str;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	return "fileNotSupported";
     }
 
     /**

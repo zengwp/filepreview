@@ -29,11 +29,7 @@
 </head>
 <body>
 <div class="container">
-    <img src="images/sorry.jpg" />
-    <span>
-        该文件类型(${fileType})系统暂时不支持在线预览
-    </span>
-</div>
+    <img src="images/sorry.jpg" /></div>
 </body>
 
 </html>
